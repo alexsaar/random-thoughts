@@ -1,0 +1,1 @@
+see [Random Thoughts](https://main--random-thoughts--alexsaar.hlx.live/)
