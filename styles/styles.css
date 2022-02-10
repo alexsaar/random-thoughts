@@ -19,17 +19,31 @@ body {
     align-items: center;
     align-content: flex-end;
     height: 100vh;
-    max-width: 600px;
+    max-width: 520px;
     padding: 0 0 48px 0;
 }
 
-.hero h1, h2 {
+.hero h1 {
+    z-index: 2;
+    font-weight: lighter;
+    position: relative;
+    background: #FFF;
+    padding: 6px 24px;
+    margin: 0;
+    flex: 1 1 auto;
+    color: #FFF;
+    background: #404040;
+}
+
+.hero > div > div > p:nth-child(2) {
     z-index: 2;
     position: relative;
     background: #FFF;
     padding: 6px 24px;
     margin: 0;
     flex: 1 1 auto;
+    color: #FFF;
+    background: #404040;
 }
 
 .hero picture {
