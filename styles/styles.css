@@ -38,7 +38,6 @@ body {
 .hero > div > div > p:nth-child(2) {
     z-index: 2;
     position: relative;
-    background: #FFF;
     padding: 6px 24px;
     margin: 0;
     flex: 1 1 auto;
