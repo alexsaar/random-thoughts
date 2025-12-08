@@ -1,56 +1,37 @@
 /**
- * Manual list of blog posts
- * TODO: Replace with query-index.json when available
- */
-const POSTS = [
-  {
-    title: 'My First Blog Post',
-    description: 'Welcome to my blog! This is my first post.',
-    date: '2025-12-05',
-    path: '/posts/welcome',
-  }
-];
-
-/**
- * Fetches all blog posts
+ * Fetches all blog posts from the query index
  * @returns {Promise<Array>} Array of post objects with metadata
  */
 async function fetchPosts() {
   try {
-    // Try to fetch from query index first
     const response = await fetch('/query-index.json');
-    if (response.ok) {
-      const data = await response.json();
-
-      // Filter for posts in the /posts folder and sort by date (newest first)
-      const posts = data.data
-        .filter(page => page.path.startsWith('/posts/'))
-        .map(page => ({
-          title: page.title || 'Untitled',
-          description: page.description || '',
-          date: page.date || page.lastModified || '',
-          path: page.path,
-          image: page.image || '',
-        }))
-        .sort((a, b) => {
-          // Sort by date in descending order (newest first)
-          const dateA = new Date(a.date);
-          const dateB = new Date(b.date);
-          return dateB - dateA;
-        });
-
-      return posts;
+    if (!response.ok) {
+      throw new Error('Failed to fetch query index');
     }
-  } catch (error) {
-    console.log('Query index not available, using manual list');
-  }
 
-  // Fallback to manual list
-  return POSTS.sort((a, b) => {
-    const dateA = new Date(a.date);
-    const dateB = new Date(b.date);
-    return dateB - dateA;
-  });
+    const data = await response.json();
+
+    // Filter for posts in the /posts folder and sort by date (newest first)
+    const posts = data.data
+      .filter(page => page.path.startsWith('/posts/'))
+      .map(page => ({
+        title: page.title || 'Untitled',
+        description: page.description || '',
+        date: page.date || '',
+        path: page.path,
+        image: page.image || '',
+      }))
+      .sort((a, b) => {
+        const dateA = new Date(a.date);
+        const dateB = new Date(b.date);
+        return dateB - dateA;
+      });
+
+    return posts;
+  } catch (error) {
+    console.error('Error fetching posts:', error);
+    return [];
+  }
 }
 
 /**
