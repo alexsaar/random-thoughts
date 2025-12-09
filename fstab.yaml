@@ -1,4 +1,0 @@
-mountpoints:
-  /:
-    url: https://content.da.live/alexsaar/random-thoughts/
-    type: markup
